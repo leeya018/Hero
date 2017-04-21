@@ -10,32 +10,27 @@ import { HeroDetailComponent } from './hero-detail.component';
 import { DashboardComponent } from './dashboard.component';
 import { HeroService } from './hero.service';
 
+import { AppRoutingModule } from './app-routing.module';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard',  component: DashboardComponent },
-  { path: 'detail/:id', component: HeroDetailComponent },
-  { path: 'heroes',     component: HeroesComponent }
-];
 
 
 @NgModule({
 
-  declarations: [
+  declarations: [//all the component I gonna use
     AppComponent,
     HeroesComponent,
     HeroDetailComponent,
     DashboardComponent
   ],
-  imports: [
+  imports: [//so that my component code could use it 
     BrowserModule,
     FormsModule,
     HttpModule,
     JsonpModule,
-    RouterModule.forRoot(routes)  
+    AppRoutingModule
   ],
-  exports: [ RouterModule ],
-  providers: [HeroService],
-  bootstrap: [AppComponent]
-})
+  exports: [ RouterModule ],//to use it outside
+  providers: [HeroService],//the services I use
+  bootstrap: [AppComponent]//the main componnt I gonna tun
+})  
 export class AppModule { }
