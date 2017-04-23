@@ -4,13 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { RouterModule , Routes} from '@angular/router';
 
+import { AppRoutingModule } from './app-routing.module';
+
+// Imports for loading & configuring the in-memory web api
+import { InMemoryWebApiModule  } from 'angular-in-memory-web-api';
+import { inMemoryDataService }  from './in-memory-data.service';
+
 import { AppComponent } from './app.compnent';
 import { HeroesComponent } from './heroes.component';
 import { HeroDetailComponent } from './hero-detail.component';
 import { DashboardComponent } from './dashboard.component';
 import { HeroService } from './hero.service';
 
-import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -26,8 +31,9 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    JsonpModule,
+    InMemoryWebApiModule.forRoot(inMemoryDataService), // forRoot function is to add a sigelton services
     AppRoutingModule
+    
   ],
   exports: [ RouterModule ],//to use it outside
   providers: [HeroService],//the services I use

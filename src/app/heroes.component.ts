@@ -25,8 +25,8 @@ export class HeroesComponent implements OnInit {
 
   constructor(
     private heroService: HeroService,
-       private router: Router
-       ) { }
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getHeroes();
@@ -41,7 +41,31 @@ export class HeroesComponent implements OnInit {
   }
 
   gotoDetail(): void {
-  this.router.navigate(['/detail', this.selectedHero.id]);
-}
+    this.router.navigate(['/detail', this.selectedHero.id]);
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.create(name)
+      .then(hero => {
+        this.heroes.push(hero);
+        this.selectedHero = null;
+      });
+  }
+  //then() -  I do not need the toPromise() function because create() returns the promise
+  //the hero in this then comes from from the hero in the create then()
+
+  delete(hero: Hero): void {
+    this.heroService
+      .delete(hero.id)
+      .then(() => {
+        this.heroes = this.heroes.filter(h => h !== hero);
+        if (this.selectedHero === hero) { this.selectedHero = null; }
+      });
+  }
+
+
+
 
 }

@@ -10,12 +10,13 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'hero-details',
-  templateUrl: 'hero-detail.component.html'
+  templateUrl: 'hero-detail.component.html',
+  styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-  @Input() hero: Hero;
+  @Input() hero: Hero;// @Input() allow to pass vars between components
 
-  constructor(  
+  constructor(
     private heroService: HeroService,
     private route: ActivatedRoute,
     private location: Location
@@ -28,6 +29,10 @@ export class HeroDetailComponent implements OnInit {
   }
 
   goBack(): void {
-  this.location.back();
-}
+    this.location.back();
+  }
+
+  save(): void {
+    this.heroService.update(this.hero).then(() => this.goBack());
+  }
 }
